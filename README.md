@@ -575,95 +575,9 @@ The project also includes a `Jenkinsfile` for automating the build and deploymen
 
 Feel free to customize the Jenkins pipeline to suit your specific requirements and deployment process.
 
-## OpenAPI Specification
-
-### Using the `openapi.yaml` File
-
-1. **View the API Documentation**
-- Open [Swagger Editor](https://editor.swagger.io/).
-- Upload the `openapi.yaml` file or paste its content.
-- Visualize and interact with the API documentation.
-
-2. **Test the API**
-- Import `openapi.yaml` into [Postman](https://www.postman.com/):
-  - Open Postman → Import → Select `openapi.yaml`.
-  - Test the API endpoints directly from Postman.
-- Or use [Swagger UI](https://swagger.io/tools/swagger-ui/):
-  - Provide the file URL or upload it to view and test endpoints.
-
-3. **Generate Client Libraries**
-- Install OpenAPI Generator:
-  ```bash
-  npm install @openapitools/openapi-generator-cli -g
-  ```
-- Generate a client library:
-  ```bash
-  openapi-generator-cli generate -i openapi.yaml -g <language> -o ./client
-  ```
-- Replace `<language>` with the desired programming language.
-
-4. **Generate Server Stubs**
-- Generate a server stub:
-  ```bash
-  openapi-generator-cli generate -i openapi.yaml -g <framework> -o ./server
-  ```
-- Replace `<framework>` with the desired framework.
-
-5. **Run a Mock Server**
-- Install Prism:
-  ```bash
-  npm install -g @stoplight/prism-cli
-  ```
-- Start the mock server:
-  ```bash
-  prism mock openapi.yaml
-  ```
-
-6. **Validate the OpenAPI File**
-- Use [Swagger Validator](https://validator.swagger.io/):
-  - Upload `openapi.yaml` or paste its content to check for errors.
-
-This guide enables you to view, test, and utilize the API. Feel free to explore the OpenAPI Specification and integrate it into your development workflow.
-
 ## Troubleshooting
 
-### Backend Issues
-
-- **`Could not autowire` Errors**: Ensure that all dependencies are correctly defined in the `build.gradle` and that the repository interfaces are located in the correct package structure.
-
-- **`Exception opening socket` for MongoDB**: Verify that MongoDB is running and accessible at `localhost:27017`. Check MongoDB logs for any connection issues.
-
-- **`Build failed`**: Ensure that you are using Java 11 and that all dependencies are correctly installed. Check the `build.gradle` file for any missing dependencies.
-
-- Regardless of the error, perhaps you can try running the following commands to clean and rebuild the project:
-
-  ```bash
-  gradle clean build -x test
-  ```
-
-  If the issue persists, you can run Gradle with more detailed logging to identify the problem:
-
-  ```bash
-  gradle bootRun --debug
-  ```
-
-### Frontend Issues
-
-- **Error: Cannot read properties of undefined (reading 'id')**: Ensure that the `employee` object in `EmployeeForm` is correctly initialized and that the `id` parameter is correctly passed. Check the `getEmployeeById` and `updateEmployee` functions for proper handling of data.
-
-- **Chart Issues**: Ensure `Chart.js` and `react-chartjs-2` are correctly installed and configured. Verify that the chart data passed to components is in the correct format.
-
-- Regardless of the error, perhaps you can try running the following commands to clean and rebuild the project:
-
-  ```bash
-  npm install
-  ```
-
-  If the issue persists, you can run the React development server with more detailed logging to identify the problem:
-
-  ```bash
-  npm start --verbose
-  ```
+For setup or runtime issues, ensure dependencies are installed and services are running, then rebuild/restart the relevant app (`backend` or `frontend`) to verify the problem.
 
 ## License
 
