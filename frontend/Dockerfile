@@ -1,19 +1,20 @@
-# Use an official Node.js image for development
-FROM node:18
-
-# Set the working directory
+FROM node:18-alpine AS builder
 WORKDIR /app
 
-# Copy package.json and install dependencies
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci
 
-# Copy the rest of the application code
-COPY src ./src
-COPY public ./public
+COPY . .
 
-# Expose the development server port
+ARG REACT_APP_API_BASE_URL
+ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
+RUN npm run build
+
+FROM node:18-alpine
+WORKDIR /app
+
+RUN npm install -g serve
+COPY --from=builder /app/build ./build
+
 EXPOSE 3000
-
-# Start the development server
-CMD ["npm", "start"]
+CMD ["sh", "-c", "serve -s build -l ${PORT:-3000}"]
